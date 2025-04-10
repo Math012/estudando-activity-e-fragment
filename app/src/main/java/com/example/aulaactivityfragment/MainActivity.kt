@@ -21,12 +21,14 @@ class MainActivity : AppCompatActivity() {
         buttonAbrir.setOnClickListener {
 
             val intent = Intent(this, DetalhesActivity::class.java)
-
             // Passando parametros para uma nova activity
-            intent.putExtra("filme","The Witcher")
-            intent.putExtra("classificação",5)
-            intent.putExtra("avaliações",9.2)
-
+            val filme = Filme(
+                "Sem limites",
+                "descrição do sem limites",
+                4.8,
+                "Matheus",
+                "Netflix"
+            )
 
             intent.putExtra("filme", filme)
 

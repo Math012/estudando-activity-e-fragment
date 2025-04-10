@@ -24,13 +24,10 @@ class DetalhesActivity : AppCompatActivity() {
         // Recuperando dados de outra activity
         val bundle = intent.extras
         if ( bundle != null){
-            val filme = bundle.getString("filme")
-            val classificação = bundle.getInt("classificação")
-            val avaliações = bundle.getDouble("avaliações")
+            val filme = bundle.getSerializable("filme") as Filme
 
-            val resultado = "filme: $filme , classificação: $classificação , avaliação: $avaliações"
 
-            textFilme.text = resultado
+            textFilme.text = "${filme.nome} - ${filme.descricao} - ${filme.avalicao} - ${filme.diretor} - ${filme.distribuidor}"
         }
 
         buttonFechar.setOnClickListener {
