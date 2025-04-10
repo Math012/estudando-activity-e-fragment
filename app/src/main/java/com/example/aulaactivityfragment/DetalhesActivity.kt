@@ -1,5 +1,6 @@
 package com.example.aulaactivityfragment
 
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -24,10 +25,18 @@ class DetalhesActivity : AppCompatActivity() {
         // Recuperando dados de outra activity
         val bundle = intent.extras
         if ( bundle != null){
-            val filme = bundle.getSerializable("filme") as Filme
+            //val filme = bundle.getSerializable("filme") as Filme
+
+            val filme = if(Build.VERSION.SDK_INT >= 33) {// verificando a versão do android, se >= 33
+                bundle.getSerializable("filme", Filme::class.java)
+            }else{
+                bundle.getSerializable("filme") as Filme
+            }
 
 
-            textFilme.text = "${filme.nome} - ${filme.descricao} - ${filme.avalicao} - ${filme.diretor} - ${filme.distribuidor}"
+
+
+            textFilme.text = "${filme?.nome} - ${filme?.descricao} - ${filme?.avalicao} - ${filme?.diretor} - ${filme?.distribuidor}"
         }
 
         buttonFechar.setOnClickListener {
