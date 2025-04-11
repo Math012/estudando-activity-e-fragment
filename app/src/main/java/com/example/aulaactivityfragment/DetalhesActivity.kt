@@ -25,16 +25,12 @@ class DetalhesActivity : AppCompatActivity() {
         // Recuperando dados de outra activity
         val bundle = intent.extras
         if ( bundle != null){
-            //val filme = bundle.getSerializable("filme") as Filme
 
-            val filme = if(Build.VERSION.SDK_INT >= 33) {// verificando a versão do android, se >= 33
-                bundle.getSerializable("filme", Filme::class.java)
+            val filme = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {// verificando a versão do android, se >= 33
+                bundle.getParcelable("filme", Filme::class.java)
             }else{
-                bundle.getSerializable("filme") as Filme
+                bundle.getParcelable("filme")
             }
-
-
-
 
             textFilme.text = "${filme?.nome} - ${filme?.descricao} - ${filme?.avalicao} - ${filme?.diretor} - ${filme?.distribuidor}"
         }
@@ -42,7 +38,6 @@ class DetalhesActivity : AppCompatActivity() {
         buttonFechar.setOnClickListener {
             finish()
         }
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
